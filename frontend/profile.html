@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Profile | CareerBloom</title>
+<link rel="icon" type="image/png" href="/static/logo.png">
+
+
+<style>
+
+body {
+    background: #000;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 40px 0;
+    color: #fff;
+}
+
+/* NAVBAR */
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(6px);
+    z-index: 100;
+    box-sizing: border-box;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #00eaff;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-right a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 22px;
+    transition: 0.3s ease;
+}
+
+.nav-right a:hover {
+    color: #00eaff;
+}
+
+/* PROFILE ICON */
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: url("https://cdn-icons-png.flaticon.com/512/149/149071.png") center/cover no-repeat;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease-in-out;
+    background-color: #222;
+}
+
+.profile-icon:hover {
+    transform: scale(1.1);
+    border-color: #00eaff;
+    box-shadow: 0 0 15px #00eaff, 0 0 30px rgba(0, 234, 255, 0.5);
+}
+
+.profile-icon:active {
+    transform: scale(0.95);
+}
+
+/* PAGE TITLE */
+h2 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 30px;
+    color: #00eaff;
+    text-shadow: 0 0 15px #00eaff;
+    margin-top: 56px;
+}
+
+/* CARD STYLE */
+.card {
+    width: 80%;
+    margin: 25px auto;
+    padding: 35px 30px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 15px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 15px rgba(0,255,255,0.3);
+}
+
+.card h3 {
+    color: #00eaff;
+    margin-bottom: 20px;
+    font-size: 22px;
+    text-shadow: 0 0 10px #00eaff;
+}
+
+/* FLEX FORM LAYOUT */
+.form-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px 40px;
+}
+
+.form-group,
+.form-flex > div {
+    flex: 1 1 48%;
+    min-width: 320px;
+}
+
+/* LABEL */
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* INPUTS */
+input {
+    width: 100%;
+    padding: 14px 16px;
+    height: 48px;
+    border-radius: 50px;
+    border: 1px solid #00eaff;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    font-size: 15px;
+    outline: none;
+    margin-top: 6px;
+    box-shadow: 0 0 8px rgba(0,255,255,0.3);
+    box-sizing: border-box;
+}
+
+/* SELECT BOXES - CHANGED TO SQUARE SHAPE */
+select {
+    width: 100%;
+    padding: 14px 16px;
+    height: 48px;
+    border-radius: 50px; /* Changed to square shape */
+    border: 1px solid #00eaff;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    font-size: 15px;
+    outline: none;
+    margin-top: 6px;
+    box-shadow: 0 0 8px rgba(0,255,255,0.3);
+    box-sizing: border-box;
+}
+
+/* RADIO GROUP */
+.radio-group {
+    display: flex;
+    gap: 10px;
+    padding-top: 5px;
+}
+
+.radio-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #eaffff;
+}
+
+.radio-box input{
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: #00ffe0;
+    cursor: pointer;
+}
+/* BUTTON */
+button {
+    display: block;
+    margin: 30px auto;
+    padding: 14px 40px;
+    background: #00eaff;
+    border: none;
+    color: #000;
+    font-size: 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 0 20px #00eaff;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.07);
+    box-shadow: 0 0 30px #00eaff;
+}
+footer {
+    text-align: center;
+    color: #777;
+    font-size: 14px;
+    margin-top: 50px;
+}
+#menuToggle:checked ~ .dashboard {
+    left: 0;
+}
+
+#menuToggle:checked ~ #overlay {
+    display: block;
+}
+/* Dashboard Sidebar */
+.dashboard {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100vh;
+    background: #0b0b0b;
+    transition: 0.3s ease;
+    z-index: 3000;
+}
+
+
+
+.dashboard.active {
+    left: 0;
+}
+
+/* Header */
+/* Dashboard Sidebar */
+.dashboard {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100vh;
+    background: #0b0b0b;
+    transition: 0.3s ease;
+    z-index: 3000;
+    padding-top: 10px;
+}
+
+.dashboard.active {
+    left: 0;
+}
+
+/* Header */
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    padding: 20px;
+}
+
+.dashboard-header h3 {
+    margin: 0;
+    color: #00eaff;
+}
+
+/* Close button */
+.close-btn {
+    font-size: 26px;
+    cursor: pointer;
+}
+
+/* Menu */
+.dashboard-menu {
+    list-style: none;
+    padding: 0 20px;   /* ← aligns with header padding */
+    margin: 0;
+}
+
+.dashboard-menu li {
+    margin-bottom: 20px;
+}
+
+.dashboard-menu a {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    font-size: 22px;
+    transition: 0.3s ease;
+}
+
+.dashboard-menu a:hover {
+    color: #00eaff;
+    text-shadow: 3px 3px 5px #00eaff;
+}
+
+.logout a {
+    color: #ff4d4d;
+}
+
+.logout a:hover {
+    color: #ff4d4d;
+    text-shadow: 3px 3px 5px;
+    box-shadow: none;
+}
+
+
+/* Overlay */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    z-index: 2500;
+}
+
+#overlay.active {
+    display: block;
+}
+
+.hamburger{
+    cursor: pointer;
+}
+/* PROFILE DROPDOWN (PROFILE + LOGOUT) */
+.profile-wrapper {
+    position: relative;
+}
+
+.profile-menu {
+    position: absolute;
+    top: 45px;
+    right: 0;
+
+    background: rgba(0,0,0,0.95);
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,234,255,0.6);
+    min-width: 160px;
+
+    opacity: 0;
+    transform: translateY(-5px);
+    pointer-events: none;
+    transition: all 0.25s ease;
+}
+
+/* invisible hover buffer (IMPORTANT) */
+.profile-menu::before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: 0;
+    width: 100%;
+    height: 15px;
+}
+
+/* SHOW MENU ON HOVER */
+.profile-wrapper:hover .profile-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.profile-menu a {
+    display: block;
+    padding: 12px;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+.profile-menu a:hover {
+    background: #00eaff;
+    color: #000;
+    font-weight: bold;
+}
+
+/* TOAST MESSAGE */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #00eaff;
+    color: #000;
+    padding: 14px 22px;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: 0 0 20px #00eaff;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+    z-index: 5000;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+</style>
+</head>
+
+<body>
+<input type="checkbox" id="menuToggle" hidden>
+<header class="navbar">
+    <div class="nav-left">
+        <label for="menuToggle" class="hamburger">☰</label>
+        <img src="/static/logo.png" alt="Logo" class="logo">
+        <span>CareerBloom</span>
+    </div>
+    <div class="profile-wrapper">
+    <div class="profile-icon" title="Profile"></div>
+
+    <div class="profile-menu">
+        <a href="/profile">Profile</a>
+        <a href="/change-password">Change Password</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+</header>
+
+<h2>Student Profile Form</h2>
+
+<form id="profileForm" action="http://127.0.0.1:5000/save_profile" method="POST">
+
+    <!-- PERSONAL INFO -->
+    <div class="card">
+        <h3>Personal Information</h3>
+
+        <div class="form-flex">
+
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" id="name" required placeholder="Enter your name" required >
+
+            </div>
+
+            <div class="form-group">
+                <label>Age</label>
+                <input type="number" name="age" min="15" max="50" required>
+                <p id="ageMessage" style="color:red; display:none; margin-top:5px;"></p>
+            </div>
+
+
+            <div class="form-group">
+                <label>Gender</label>
+                <select name="gender" required>
+                    <option value="" disabled selected>Select</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Education Level</label>
+                <select name="education" required>
+                    <option value="" disabled selected>Select</option>
+                    <option>10th</option>
+                    <option>12th</option>
+                    <option>Diploma</option>
+                    <option>Degree</option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ACADEMIC -->
+    <div class="card">
+        <h3>Academic Performance</h3>
+
+        <div class="form-flex">
+            <div>
+                <label>Mathematics Score</label>
+                <select name="math_score" required>
+                    <option value="" disabled selected>Select</option>
+                    <option>60-70</option><option>70-80</option>
+                    <option>80-90</option><option>90-100</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Science / Physics Score</label>
+                <select name="science_score" required>
+                    <option value="" disabled selected>Select</option>
+                    <option>60-70</option><option>70-80</option>
+                    <option>80-90</option><option>90-100</option>
+                </select>
+            </div>
+
+            <div>
+                <label>English Score</label>
+                <select name="english_score" required>
+                    <option value="" disabled selected >Select</option>
+                    <option>60-70</option><option>70-80</option>
+                    <option>80-90</option><option>90-100</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Overall Percentage / CGPA</label>
+                <select name="overall_score" required>
+                    <option value="" disabled selected>Select</option>
+                    <option>60-70</option><option>70-80</option>
+                    <option>80-90</option><option>90-100</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="card">
+        <h3>Skills (Rate 0 to 5)</h3>
+
+        <div class="form-flex">
+            <div>
+                <label>Programming Skill</label>
+                <select name="skill_programming" required>
+                <option value="" disabled selected>Select</option>
+                   <option>0</option> 
+                   <option>1</option>
+                   <option>2</option>
+                   <option>3</option> 
+                   <option>4</option> 
+                   <option>5</option>  
+                </select>
+            </div>
+
+            <div>
+                <label>Creativity</label>
+                <select name="skill_creativity" required>
+                <option value="" disabled selected>Select</option>
+                   <option>0</option> 
+                   <option>1</option>
+                   <option>2</option>
+                   <option>3</option> 
+                   <option>4</option> 
+                   <option>5</option>  
+                </select>
+            </div>
+
+            <div>
+                <label>Communication Skill</label>
+                <select name="skill_communication" required>
+                <option value="" disabled selected>Select</option>
+                   <option>0</option> 
+                   <option>1</option>
+                   <option>2</option>
+                   <option>3</option> 
+                   <option>4</option> 
+                   <option>5</option>  
+                </select>
+            </div>
+
+            <div>
+                <label>Problem Solving</label>
+                <select name="skill_problem_solving" required>
+                <option value="" disabled selected>Select</option>
+                   <option>0</option> 
+                   <option>1</option>
+                   <option>2</option>
+                   <option>3</option> 
+                   <option>4</option> 
+                   <option>5</option>  
+                </select>
+            </div>
+
+            <div>
+                <label>Analytical Skill</label>
+                <select name="skill_analytical" required>
+                <option value="" disabled selected>Select</option>
+                   <option>0</option> 
+                   <option>1</option>
+                   <option>2</option>
+                   <option>3</option> 
+                   <option>4</option> 
+                   <option>5</option>  
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- INTEREST -->
+    <div class="card">
+        <h3>Interests</h3>
+
+        <select name="interest" required>
+        <option value="" disabled selected>Select</option>
+            <option>Technology</option><option>Business</option>
+            <option>Medicine</option><option>Design</option>
+            <option>Finance</option><option>Law</option>
+            <option>Psychology</option><option>Arts</option>
+        </select>
+    </div>
+
+    <!-- PERSONALITY -->
+    <div class="card">
+        <h3>Personality</h3>
+
+        <div class="form-flex">
+
+            <div>
+                <label>Introvert / Extrovert</label><br>
+                <div class="radio-group">
+                    <label class="radio-box" >
+                        <input type="radio" name="pers_extrovert" value="Introvert"> Introvert
+                    </label>
+
+                    <label class="radio-box">
+                        <input type="radio" name="pers_extrovert" value="Extrovert"> Extrovert
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <label>Creative → Analytical</label>
+                <select name="pers_creative" required>
+                   <option value="" disabled selected>Select</option>
+                   <option>0</option> 
+                   <option>1</option>
+                   <option>2</option>
+                   <option>3</option> 
+                   <option>4</option> 
+                   <option>5</option>  
+                </select>
+            </div>
+
+            <div>
+                <label>Leadership</label>
+                <select name="pers_leadership" required>
+                  <option value="" disabled selected>Select</option>
+                   <option>0</option> 
+                   <option>1</option>
+                   <option>2</option>
+                   <option>3</option> 
+                   <option>4</option> 
+                   <option>5</option>  
+                </select>
+            </div>
+
+            <div>
+                <label>Risk Taking</label>
+                <select name="pers_risk" required>
+                  <option value="" disabled selected>Select</option>
+                   <option>0</option> 
+                   <option>1</option>
+                   <option>2</option>
+                   <option>3</option> 
+                   <option>4</option> 
+                   <option>5</option>  
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- APTITUDE -->
+    <div class="card">
+        <h3>Aptitude Scores (0 to 5)</h3>
+
+        <div class="form-flex">
+            <div>
+                <label>Logical Ability</label>
+                <select name="apt_logical" required>
+                   <option value="" disabled selected>Select</option>
+                   <option>0</option> 
+                   <option>1</option>
+                   <option>2</option>
+                   <option>3</option> 
+                   <option>4</option> 
+                   <option>5</option>  
+                </select>
+            </div> 
+
+            <div>
+                <label>Verbal Ability</label>
+                <select name="apt_verbal" required>
+                   <option value="" disabled selected>Select</option>
+                   <option>0</option> 
+                   <option>1</option>
+                   <option>2</option>
+                   <option>3</option> 
+                   <option>4</option> 
+                   <option>5</option>  
+                </select>
+            </div>
+
+            <div>
+                <label>Numerical Ability</label>
+                <select name="apt_numerical" required>
+                   <option value="" disabled selected>Select</option>
+                   <option>0</option> 
+                   <option>1</option>
+                   <option>2</option>
+                   <option>3</option> 
+                   <option>4</option> 
+                   <option>5</option>  
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit">Submit Profile</button>
+<div id="toast" class="toast">Profile submitted!</div>
+</form>
+<footer>
+    ©️ 2026 CareerBloom. All rights reserved.
+</footer>
+
+
+<!-- Sidebar Dashboard -->
+<div id="dashboard" class="dashboard">
+    <div class="dashboard-header">
+        <span class="close-btn" onclick="toggleDashboard()">×</span>
+        <h3>My Dashboard</h3>
+    </div>
+
+    <ul class="dashboard-menu">
+    <li><a href="/home" data-link>Home</a></li>
+    <li><a href="/about" data-link>About Us</a></li>
+    <li><a href="/feedback" data-link>Feedback</a></li>
+    <li class="logout"><a href="/logout" data-link>Logout</a></li>
+    </ul>
+
+</div>
+
+<label id="overlay" for="menuToggle"></label>
+<script>
+document.querySelector('input[name="age"]').addEventListener('input', function() {
+    const ageMessage = document.getElementById('ageMessage');
+    const age = this.value;
+
+    if (age < 15) {
+        ageMessage.textContent = "Age must be at least 15.";
+        ageMessage.style.display = 'block';
+    }
+    else if (age > 50) {
+        ageMessage.textContent = "Age must be 50 or below.";
+        ageMessage.style.display = 'block';
+    }
+    else {
+        ageMessage.style.display = 'none';
+    }
+});
+</script>
+
+<script>
+const nameInput = document.getElementById("name");
+
+nameInput.addEventListener("input", function () {
+    // Allow only letters (A–Z, a–z) and spaces
+    this.value = this.value.replace(/[^A-Za-z\s]/g, "");
+});
+</script>
+
+<script>
+const dashboard = document.getElementById("dashboard");
+const overlay = document.getElementById("overlay");
+const menuToggle = document.getElementById("menuToggle");
+
+function toggleDashboard() {
+    dashboard.classList.toggle("active");
+    overlay.classList.toggle("active");
+    menuToggle.checked = dashboard.classList.contains("active");
+}
+
+document.querySelectorAll("[data-link]").forEach(link => {
+    link.addEventListener("click", function (e) {
+        e.preventDefault();
+        const url = this.getAttribute("href");
+        const currentPath = window.location.pathname;
+
+        dashboard.classList.remove("active");
+        overlay.classList.remove("active");
+        menuToggle.checked = false;
+
+        setTimeout(() => {
+            if (currentPath === url) {
+                // FORCE reload if same page
+                window.location.reload();
+            } else {
+                window.location.href = url;
+            }
+        }, 200);
+    });
+});
+
+overlay.addEventListener("click", () => {
+    dashboard.classList.remove("active");
+    overlay.classList.remove("active");
+    menuToggle.checked = false;
+});
+</script>
+
+<script>
+const form = document.getElementById("profileForm");
+const toast = document.getElementById("toast");
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        form.submit();
+    }, 1200);
+});
+</script>
+</body>
+</html>

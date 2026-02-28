@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CareerBloom AI Chat</title>
+<link rel="icon" type="image/png" href="/static/logo.png">
+
+<style>
+body {
+    background: #000;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    color: #fff;
+}
+
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(6px);
+    z-index: 100;
+    box-sizing: border-box;
+}
+
+/* HOME ICON DROPDOWN */
+.home-wrapper {
+    position: relative;
+    cursor: pointer;
+}
+
+.home-icon {
+    width: 44px;              /* Bigger */
+    height: 44px;
+    filter: 
+        drop-shadow(0 0 10px #00eaff)
+        drop-shadow(0 0 20px rgba(0,234,255,0.9));
+    transition: all 0.3s ease;
+}
+
+.home-icon:hover {
+    transform: scale(1.15);
+    filter:
+        drop-shadow(0 0 15px #00eaff)
+        drop-shadow(0 0 35px rgba(0,234,255,1));
+}
+.home-icon:hover {
+    transform: scale(1.1);
+}
+
+/* DROPDOWN MENU */
+.home-menu {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.75);   /* translucent */
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(0,234,255,0.7);
+    border-radius: 14px;
+    box-shadow: 0 0 25px rgba(0,234,255,0.6);
+    display: none;
+    min-width: 150px;
+    z-index: 999;
+}
+
+.home-menu a {
+    display: block;
+    padding: 14px 18px;
+    color: #00eaff;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+}
+
+.home-menu a:hover {
+    background: transparent;   /* 🔴 KEY FIX: no fill */
+    color: #ffffff;             /* text always visible */
+    
+    box-shadow:
+        inset 0 0 12px rgba(0,234,255,0.35),
+        0 0 18px rgba(0,234,255,0.75);
+
+    border: 1px solid rgba(0,234,255,0.7);
+}
+/* SHOW MENU ON HOVER */
+.home-wrapper:hover .home-menu {
+    display: block;
+}
+
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #00eaff;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-right a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 22px;
+    transition: 0.3s;
+}
+
+.nav-right a:hover {
+    color: #00eaff;
+}
+
+/* CHAT CONTAINER */
+.chat-container {
+    margin-top: 100px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+}
+
+/* CHAT BOX */
+.chat-box {
+    background: rgba(255,255,255,0.05);
+    border-radius: 20px;
+    padding: 25px;
+    height: 420px;
+    overflow-y: auto;
+    box-shadow: 0 0 20px rgba(0,234,255,0.3);
+}
+
+/* MESSAGE */
+.message {
+    margin-bottom: 18px;
+    line-height: 1.6;
+}
+
+.user {
+    text-align: right;
+    color: #fff;
+}
+
+.bot {
+    text-align: left;
+    color: #00eaff;
+}
+
+/* INPUT AREA */
+.input-area {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.input-area input {
+    flex: 1;
+    padding: 14px 20px;
+    border-radius: 30px;
+    border: 1px solid #00eaff;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+}
+
+.input-area button {
+    padding: 14px 30px;
+    border-radius: 30px;
+    border: none;
+    background: #00eaff;
+    color: #000;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 0 15px #00eaff;
+    transition: 0.3s;
+}
+
+.input-area button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px #00eaff;
+}
+
+/* SCROLLBAR */
+.chat-box::-webkit-scrollbar {
+    width: 6px;
+}
+.chat-box::-webkit-scrollbar-thumb {
+    background: #00eaff;
+    border-radius: 10px;
+}
+.career-card {
+    background: rgba(0, 234, 255, 0.08);
+    border: 1px solid #00eaff;
+    border-radius: 16px;
+    padding: 18px;
+    margin-top: 15px;
+    box-shadow: 0 0 15px rgba(0,234,255,0.4);
+    transition: transform 0.3s ease;
+}
+
+.career-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 25px rgba(0,234,255,0.7);
+}
+
+.career-card h3 {
+    color: #00eaff;
+    margin-bottom: 8px;
+}
+
+.career-card p {
+    color: #eaffff;
+    font-size: 15px;
+}
+
+/* HAMBURGER */
+.hamburger {
+    cursor: pointer;
+    font-size: 26px;
+    color: #00eaff;
+    user-select: none;
+}
+
+/* DASHBOARD SIDEBAR */
+.dashboard {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100vh;
+    background: #0b0b0b;
+    transition: 0.3s ease;
+    z-index: 3000;
+}
+
+.dashboard.active {
+    left: 0;
+}
+
+/* SIDEBAR HEADER */
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding: 20px;
+}
+
+.dashboard-header h3 {
+    margin: 0;
+    color: #00eaff;
+}
+
+.close-btn {
+    font-size: 26px;
+    cursor: pointer;
+    color: #fff;
+}
+
+/* MENU */
+.dashboard-menu {
+    list-style: none;
+    padding: 0 20px;
+}
+
+.dashboard-menu li {
+    margin-bottom: 18px;
+}
+
+.dashboard-menu a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px;
+    transition: 0.3s ease;
+}
+
+.dashboard-menu a:hover {
+    color: #00eaff;
+    text-shadow: 0 0 10px #00eaff;
+}
+
+.logout a {
+    color: #ff4d4d;
+}
+
+/* OVERLAY */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    z-index: 2500;
+}
+
+#overlay.active {
+    display: block;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <input type="checkbox" id="menuToggle" hidden>
+
+<div class="nav-left">
+    <label for="menuToggle" class="hamburger" onclick="toggleDashboard()">☰</label>
+    <img src="/static/logo.png" class="logo">
+    <span>CareerBloom</span>
+</div>
+
+
+    <!-- HOME ICON + LOGOUT DROPDOWN -->
+    <div class="nav-right">
+
+        <div class="home-wrapper">
+            <img src="/static/home.png" class="home-icon" title="Home">
+
+            <div class="home-menu">
+                <a href="/home">Home</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+
+    </div>
+</header>
+<div class="chat-container">
+    <div class="chat-box" id="chatBox">
+        <div class="message bot">
+            🤖 Hello! Welcome to CareerBloom AI.<br>
+            How can I help you today?
+        </div>
+    </div>
+
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+function sendMessage() {
+    const input = document.getElementById("userInput");
+    const message = input.value.trim();
+    if (!message) return;
+
+    const chatBox = document.getElementById("chatBox");
+
+    // User message
+    chatBox.innerHTML += `<div class="message user">${message}</div>`;
+    input.value = "";
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    fetch("/chat-message", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message })
+    })
+    .then(res => res.json())
+    .then(data => {
+    chatBox.innerHTML += `<div class="message bot">${data.reply}</div>`;
+
+    if (data.cards) {
+        data.cards.forEach(card => {
+            chatBox.innerHTML += `
+                <div class="career-card">
+                    <h3>${card.title}</h3>
+                    <p>${card.reason}</p>
+                </div>
+            `;
+        });
+    }
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+});
+}
+</script>
+<!-- Sidebar Dashboard -->
+<div id="dashboard" class="dashboard">
+    <div class="dashboard-header">
+        <span class="close-btn" onclick="toggleDashboard()">×</span>
+        <h3>Menu</h3>
+    </div>
+
+    <ul class="dashboard-menu">
+        <li><a href="/home">Home</a></li>
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/feedback">Feedback</a></li>
+        <li class="logout"><a href="/logout">Logout</a></li>
+    </ul>
+</div>
+
+<div id="overlay" onclick="toggleDashboard()"></div>
+
+<script>
+const dashboard = document.getElementById("dashboard");
+const overlay = document.getElementById("overlay");
+
+function toggleDashboard() {
+    dashboard.classList.toggle("active");
+    overlay.classList.toggle("active");
+}
+</script>
+
+</body>
+</html>

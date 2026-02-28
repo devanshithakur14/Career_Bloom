@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="icon" type="image/png" href="/static/logo.png">
+    <title>AboutUs | CareerBloom</title>
+
+<style>
+body {
+    margin: 0;
+    background: #000;
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+
+/* NAVBAR */
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgb(0, 0, 0);
+    backdrop-filter: blur(6px);
+    z-index: 100; /* Ensure navbar stays on top */
+    box-sizing: border-box;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center; /* Vertically centers logo with text */
+    gap: 12px;           /* Space between logo and text */
+    font-size: 24px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    color: #00eaff;
+}
+
+.logo {
+    width: 60px;        /* Adjust size as needed */
+    height: 60px;
+    object-fit: contain;
+    /* Optional: filter: drop-shadow(0 0 5px #00eaff); -> adds glow to logo */
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-right a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 22px;
+    transition: 0.3s ease;
+}
+
+.nav-right a:hover {
+    color: #00eaff;
+    text-shadow: 3px 3px 5px #00eaff;
+}
+
+/* IMPROVED PROFILE ICON */
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: url("https://cdn-icons-png.flaticon.com/512/149/149071.png") center/cover no-repeat;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease-in-out;
+    background-color: #222; /* Fallback color */
+}
+
+/* Hover Effect: Glow and Scale */
+.profile-icon:hover {
+    transform: scale(1.1);
+    border-color: #00eaff;
+    box-shadow: 0 0 15px #00eaff, 0 0 30px rgba(0, 234, 255, 0.5);
+}
+
+/* Active Effect: Slight click press */
+.profile-icon:active {
+    transform: scale(0.95);
+}
+.box{
+    max-width: 1100px;
+    margin: auto;
+    padding: 120px 20px 60px;
+}
+.bloom{
+    text-align: center;
+    margin-bottom: 60px;
+}
+.bloom h1{
+    font-size: 50px;
+    color:#00eaff;
+}
+.bloom p{
+    font-size: 18px;
+    max-width: 900px;
+    margin: auto;
+    color: #ccc;
+}
+.prt{
+    margin-bottom: 60px;
+}
+.prt h2{
+    font-size: 33px;
+    color: #00eaff;
+    margin-bottom: 20px;
+}
+.prt p{
+    font-size: 19px;
+    color:#ccc;
+    line-height: 1.6;
+}
+.prt h3{
+    margin-left: 30px;
+    color: #ccc;
+    text-align: left;
+}
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap: 25px;
+    margin-top: 30px;
+    padding: 15px;
+    cursor: pointer;
+}
+
+.card {
+    background: linear-gradient(145deg, #0a0a0a, #111);
+    border-radius: 16px;
+    padding: 24px 26px ;
+    text-align: left;
+    width: 300px;
+    height: 220px;
+    border: 1px solid rgba(0,234,255,0.2);
+    transition: 0.3s ease all;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(0,234,255,0.3);
+}
+
+.card h3 {
+    color: #00eaff;
+    margin-bottom: 12px;
+    text-align: center;
+    margin-right: 30px;
+    
+}
+.list{
+    margin-top: 20px;
+}
+.list li{
+    margin-bottom: 10px;
+    color:#ccc;
+    font-size: 19px;
+}
+.cont{
+    background: linear-gradient(145deg, #0a0a0a, #111);
+    padding: 36px;
+    border-radius: 20px;
+    border: 1px solid rgba(0,234,255,0.3);
+    transition: 0.3s ease all;
+}
+.cont:hover{
+    transform: scale(1.003);
+    box-shadow: 0 0 25px rgba(0,234,255,0.3);
+}
+.cont h2{
+    color: #00eaff;
+    font-size: 30px;
+}
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #777;
+    font-size: 14px;
+}
+#menuToggle:checked ~ .dashboard {
+    left: 0;
+}
+
+#menuToggle:checked ~ #overlay {
+    display: block;
+}
+/* Dashboard Sidebar */
+/* Dashboard Sidebar */
+.dashboard {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100vh;
+    background: #0b0b0b;
+    transition: 0.3s ease;
+    z-index: 3000;
+    padding-top: 10px;
+}
+
+.dashboard.active {
+    left: 0;
+}
+
+/* Header */
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    padding: 20px;
+}
+
+.dashboard-header h3 {
+    margin: 0;
+    color: #00eaff;
+}
+
+/* Close button */
+.close-btn {
+    font-size: 26px;
+    cursor: pointer;
+}
+
+/* Menu */
+.dashboard-menu {
+    list-style: none;
+    padding: 0 20px;   /* ← aligns with header padding */
+    margin: 0;
+}
+
+.dashboard-menu li {
+    margin-bottom: 20px;
+}
+
+.dashboard-menu a {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    font-size: 22px;
+    transition: 0.3s ease;
+}
+
+.dashboard-menu a:hover {
+    color: #00eaff;
+    text-shadow: 3px 3px 5px #00eaff;
+}
+
+.logout a {
+    color: #ff4d4d;
+}
+
+.logout a:hover {
+    color: #ff4d4d;
+    text-shadow: 3px 3px 5px;
+    box-shadow: none;
+}
+
+/* Overlay */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    z-index: 2500;
+}
+
+#overlay.active {
+    display: block;
+}
+
+.hamburger{
+    cursor: pointer;
+}
+
+/* PROFILE DROPDOWN (PROFILE + LOGOUT) */
+.profile-wrapper {
+    position: relative;
+}
+
+.profile-menu {
+    position: absolute;
+    top: 45px;
+    right: 0;
+
+    background: rgba(0,0,0,0.95);
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,234,255,0.6);
+    min-width: 160px;
+
+    opacity: 0;
+    transform: translateY(-5px);
+    pointer-events: none;
+    transition: all 0.25s ease;
+}
+
+/* invisible hover buffer (IMPORTANT) */
+.profile-menu::before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: 0;
+    width: 100%;
+    height: 15px;
+}
+
+/* SHOW MENU ON HOVER */
+.profile-wrapper:hover .profile-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.profile-menu a {
+    display: block;
+    padding: 12px;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+.profile-menu a:hover {
+    background: #00eaff;
+    color: #000;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+    <input type="checkbox" id="menuToggle" hidden>
+    <header class="navbar">
+    <div class="nav-left">
+    <label for="menuToggle" class="hamburger">☰</label>   
+    <img src="/static/logo.png" alt="Logo" class="logo">
+    <span>CareerBloom</span>
+    </div>
+    <div class="profile-wrapper">
+    <div class="profile-icon" title="Profile"></div>
+
+    <div class="profile-menu">
+        <a href="/profile">Profile</a>
+        <a href="/change-password">Change Password</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+</header>
+
+<!-- Sidebar Dashboard -->
+<div id="dashboard" class="dashboard">
+    <div class="dashboard-header">
+        <span class="close-btn" onclick="toggleDashboard()">×</span>
+        <h3>My Dashboard</h3>
+    </div>
+
+    <ul class="dashboard-menu">
+    <li><a href="/home" data-link>Home</a></li>
+    <li><a href="/about" data-link>About Us</a></li>
+    <li><a href="/feedback" data-link>Feedback</a></li>
+    <li class="logout"><a href="/logout" data-link>Logout</a></li>
+    </ul>
+
+</div>
+
+<label id="overlay" for="menuToggle"></label>
+
+<script>
+const dashboard = document.getElementById("dashboard");
+const overlay = document.getElementById("overlay");
+const menuToggle = document.getElementById("menuToggle");
+
+function toggleDashboard() {
+    dashboard.classList.toggle("active");
+    overlay.classList.toggle("active");
+    menuToggle.checked = dashboard.classList.contains("active");
+}
+
+document.querySelectorAll("[data-link]").forEach(link => {
+    link.addEventListener("click", function (e) {
+        e.preventDefault();
+        const url = this.getAttribute("href");
+        const currentPath = window.location.pathname;
+
+        dashboard.classList.remove("active");
+        overlay.classList.remove("active");
+        menuToggle.checked = false;
+
+        setTimeout(() => {
+            if (currentPath === url) {
+                // FORCE reload if same page
+                window.location.reload();
+            } else {
+                window.location.href = url;
+            }
+        }, 200);
+    });
+});
+
+overlay.addEventListener("click", () => {
+    dashboard.classList.remove("active");
+    overlay.classList.remove("active");
+    menuToggle.checked = false;
+});
+</script>
+
+<div class="box">
+    <div class="bloom">
+        <h1>About CareerBloom</h1>
+        <p>
+            CareerBloom is an AI-powered career guidance platform designed to help students make informed and confident decisions about their future by combining data, intelligence, and self-discovery.
+        </p>
+    </div>
+
+    <div class="prt">
+        <h2>Our Mission</h2>
+        <p>
+            To guide students toward meaningful careers by providing accurate, data-driven insights that align with their strengths, interests, and long-term goals.
+        </p>
+    </div>
+
+    <div class="prt">
+        <h2>What We Do</h2>
+        <div class="cards">
+            <div class="card">
+                <h3>Academic Analysis</h3>
+                <p>Evaluates academic performance to understand subject strengths. Identifies improvement areas to enhance academic potential.</p>
+            </div>
+            <div class="card">
+                <h3>Skill & Aptitude</h3>
+                <p>Assesses practical skills and aptitude levels using AI models. Highlights natural abilities and career-ready competencies.</p>
+            </div>
+            <div class="card">
+                <h3>Personality & Interests</h3>
+                <p>Understands personal traits and interests to match suitable careers. Ensures career choices align with individual mindset and passion.</p>
+            </div>
+            <div class="card">
+                <h3>Career Matching</h3>
+                <p>Recommends the most suitable career paths with future scope. Maps profiles to industries with high growth potential.</p>
+            </div>
+            <div class="card">
+                <h3>AI-Driven Insights</h3>
+                <p>Uses intelligent models to generate accurate career insights and predictions. Continuosly improves recommendations through smart learning.</p>
+            </div>
+            <div class="card">
+                <h3>Career Clarity</h3>
+                <p>Helps students eliminate confusion and gain confidence in career decisions. Provides a clear roadmap for long term career success.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="prt">
+        <h2>How Our AI Works</h2>
+        <p>
+            Our system evaluates academic scores, skills, personality traits, aptitude levels, and interests. Based on this profile, the AI recommends personalized career paths such as Engineering, Medical, Business, Design, Law, Finance, IT, Psychology, and Arts.
+        </p>
+    </div>
+
+    <div class="prt">
+        <h2>Our Vision</h2>
+        <p>
+            To build a future where every student has access to personalized career guidance, empowering them to choose careers that match who they are and what they are capable of becoming.
+        </p>
+    </div>
+
+    <div class="prt">
+        <h2>Our Values</h2>
+        <ul class="list">
+            <li>Student-first approach.</li>
+            <li>Accuracy and transparency.</li>
+            <li>Inclusivity and equal opportunities.</li>
+            <li>Innovation through technology.</li>
+            <li>Growth-focused mindset</li>
+        </ul>
+    </div>
+    
+    <div class="prt">
+        <h2>Meet Our Team</h2>
+        <h3>Devanshi Thakur</h3>
+        <h3>Riya Rathod</h3>
+        <h3>Disha Divekar</h3>
+        <h3>Shravani Deshmukh</h3>
+        </ul>
+    </div>
+
+    <div class="cont">
+        <h2>Contact Us</h2>
+        <p>Email: careerbloom2026@gmail.com</p>
+        <p>Phone: +91 XXXXX XXXXX</p>
+    </div>
+</div>
+
+<footer>
+    © 2026 CareerBloom. All rights reserved.
+</footer>
+</body>
+</html>

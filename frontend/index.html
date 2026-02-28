@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <meta charset="UTF-8">
+    <title>Index | CareerBloom</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background-color: #f4f7fb;
+            animation: bodyFade 0.8s ease-out;
+        }
+
+        @keyframes bodyFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            color: white;
+            opacity: 0;
+            transform: scale(2.5);
+            animation: popup 0.7s ease-out forwards;
+        }
+
+        @keyframes popup {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Background Blur + Zoom */
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f")
+                        center/cover no-repeat;
+            filter: blur(3px) brightness(0.85);
+            animation: zoomEffect 12s ease-in-out infinite alternate;
+            z-index: -2;
+        }
+
+        @keyframes zoomEffect {
+            from { transform: scale(1); }
+            to   { transform: scale(1.15); }
+        }
+
+        /* Dark Cinematic Overlay */
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                rgba(0, 0, 0, 0.65),
+                rgba(0, 0, 0, 0.55),
+                rgba(0, 0, 0, 0.65)
+            );
+            z-index: -1;
+        }
+
+        /* Glassmorphic Content Box */
+        .hero-content {
+            max-width: 800px;
+            padding: 35px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: floatSlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatSlow {
+            from { transform: translateY(0); }
+            to   { transform: translateY(-12px); }
+        }
+
+        /* Fade-up animation for each element */
+        .hero-content > * {
+            animation: fadeUp 1.1s ease forwards;
+            opacity: 0;
+            transform: translateY(25px);
+        }
+
+        .hero-content h1 { animation-delay: 0.2s; }
+        .hero-content p { animation-delay: 0.5s; }
+        .hero-content button { animation-delay: 0.8s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Headline */
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 12px rgba(0, 255, 255, 0.35);
+        }
+
+        /* Color-changing AI text */
+        .hero h1 span {
+            animation: colorChange 3s infinite alternate;
+        }
+
+        @keyframes colorChange {
+            0%   { color: #ff3b3b; }
+            25%  { color: #ff9f1c; }
+            50%  { color: #15d3d3; }
+            75%  { color: #4aeb4a; }
+            100% { color: #a44bff; }
+        }
+
+        /* Paragraph */
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        /* Glowing Button */
+        .hero button {
+            padding: 14px 40px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 40px;
+            background: linear-gradient(135deg, #00e0ff, #00bcd4);
+            color: #000;
+            cursor: pointer;
+            transition: 0.4s ease;
+            box-shadow: 0 0 15px rgba(0, 224, 255, 0.4);
+        }
+
+        .hero button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(0, 224, 255, 0.8);
+        }
+
+        .hero button a {
+            text-decoration: none;
+            color: black;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1><span>AI</span> powered career recommendation for students</h1>
+            <p>
+                Discover the best career options based on your skills, interests,
+                and academic strengths using Artificial Intelligence.
+            </p>
+            <button><a href="/login-page">LOGIN</a></button>
+        </div>
+    </section>
+
+</body>
+</html>
